@@ -1,0 +1,228 @@
+{
+
+ "kind": "admin#directory#chromeosdevices",
+ "chromeosdevices": [
+
+  {
+
+
+   "kind": "admin#directory#chromeosdevice",
+
+   "deviceId": "60616baa-4140-436b-b3f4-ae8d64702e6d",
+   "serialNumber": "HG3D93CB601768",
+
+   "status": "ACTIVE",
+   "lastSync": "2013-04-24T00:40:10.404Z",
+
+   "annotatedUser": "Andrew",
+   "annotatedLocation": "Mountain View <-> Burlingame",
+
+   "notes": "Req-Tag:368411",
+   "osVersion": "18.0.1025.168",
+
+   "platformVersion": "1660.144.0 (Official Build) stable-channel x86-alex",
+   "firmwareVersion": "Alex.03.61.0735.0056G3.0021",
+
+   "bootMode": "Verified",
+   "lastEnrollmentTime": "2013-01-09T17:05:57.838Z",
+
+   "orgUnitPath": "/"
+  },
+  {
+
+
+
+   "kind": "admin#directory#chromeosdevice",
+
+   "deviceId": "9cd7ddbc-b09e-4438-a1a7-58052b8319c4",
+   "serialNumber": "HT4L91SC300149",
+
+   "status": "ACTIVE",
+   "lastSync": "2012-08-21T16:44:26.875Z",
+
+   "lastEnrollmentTime": "2012-06-15T20:55:51.421Z",
+   "orgUnitPath": "/"
+
+  },
+  {
+
+
+   "kind": "admin#directory#chromeosdevice",
+
+   "deviceId": "b1dc1b53-362d-4f8d-98a6-5832346c5b21",
+   "serialNumber": "HJAC93CB702652",
+
+   "status": "ACTIVE",
+   "lastSync": "2013-03-15T21:26:51.700Z",
+
+   "annotatedUser": "andrew@skip-shot.net",
+   "annotatedLocation": "",
+
+   "notes": "",
+   "lastEnrollmentTime": "2013-03-15T21:26:50.597Z",
+
+   "orgUnitPath": "/"
+  },
+  {
+
+
+
+   "kind": "admin#directory#chromeosdevice",
+
+   "deviceId": "c558d540-93a7-46f1-8a9e-b2049cdf5e86",
+   "serialNumber": "HG3D93CB600328",
+
+   "status": "ACTIVE",
+   "lastSync": "2013-01-30T17:13:49.873Z",
+
+   "lastEnrollmentTime": "2013-01-30T01:17:31.886Z",
+   "orgUnitPath": "/"
+
+  },
+  {
+
+
+   "kind": "admin#directory#chromeosdevice",
+
+   "deviceId": "ca34540c-ede5-4529-88b5-9b3214737db6",
+   "serialNumber": "HY3A91ECB17898",
+
+   "status": "ACTIVE",
+   "lastSync": "2013-01-16T23:52:13.487Z",
+
+   "lastEnrollmentTime": "2013-01-16T23:46:04.757Z",
+   "orgUnitPath": "/"
+
+  },
+  {
+
+
+   "kind": "admin#directory#chromeosdevice",
+
+   "deviceId": "cad63fdb-4d6f-46e1-8c3e-43939544c6f8",
+   "serialNumber": "HY3B91ECA00144",
+
+   "status": "ACTIVE",
+   "lastSync": "2013-06-11T18:39:15.594Z",
+
+   "osVersion": "26.0.1410.57",
+   "platformVersion": "3701.81.2 (Official Build) stable-channel daisy",
+
+   "firmwareVersion": "Google_Snow.2695.117.0",
+   "bootMode": "Verified",
+
+   "lastEnrollmentTime": "2013-06-11T17:35:24.820Z",
+   "orgUnitPath": "/"
+
+  },
+  {
+
+
+   "kind": "admin#directory#chromeosdevice",
+
+   "deviceId": "e4d11d6a-1de8-46e7-8e29-8644f13ffe34",
+   "serialNumber": "HTKH91SC500127",
+
+   "status": "ACTIVE",
+   "lastSync": "2013-05-15T21:54:16.206Z",
+
+   "osVersion": "26.0.1410.57",
+   "platformVersion": "3701.81.2 (Official Build) stable-channel lumpy",
+
+   "firmwareVersion": "Google_Lumpy.2.111.0",
+   "bootMode": "Verified",
+
+   "lastEnrollmentTime": "2013-05-02T16:54:31.783Z",
+   "orgUnitPath": "/"
+
+  },
+  {
+
+
+   "kind": "admin#directory#chromeosdevice",
+
+   "deviceId": "14743d14-50cf-4582-b7fa-48d2770167f2",
+   "serialNumber": "GZTB93CB600177",
+
+   "status": "ACTIVE",
+   "lastSync": "2013-05-09T00:02:32.205Z",
+
+   "annotatedUser": "",
+   "annotatedLocation": "",
+
+   "notes": "Moo-cow unit.",
+   "osVersion": "23.0.1271.110",
+
+   "platformVersion": "2913.276.0 (Official Build) stable-channel x86-alex",
+   "firmwareVersion": "Alex.03.61.0735.0056G3.0021",
+
+   "bootMode": "Verified",
+   "lastEnrollmentTime": "2012-09-13T23:32:56.071Z",
+
+   "orgUnitPath": "/"
+  },
+  {
+
+
+
+   "kind": "admin#directory#chromeosdevice",
+
+   "deviceId": "77bc2a28-7e01-4fd9-9f1a-aeeff74e82c5",
+   "serialNumber": "Andrew",
+
+   "status": "ACTIVE",
+   "lastSync": "2013-04-29T22:54:11.145Z",
+
+   "lastEnrollmentTime": "2013-04-29T22:54:10.322Z",
+   "orgUnitPath": "/"
+
+  },
+  {
+
+
+   "kind": "admin#directory#chromeosdevice",
+
+   "deviceId": "8e56e870-a02c-4cf6-ba5e-4b01a9242015",
+   "serialNumber": "HTKF91YC400591",
+
+   "status": "ACTIVE",
+   "lastSync": "2013-05-21T16:28:47.318Z",
+
+   "annotatedUser": "andrew@skip-shot.net",
+   "lastEnrollmentTime": "2013-05-21T16:26:27.803Z",
+
+   "orgUnitPath": "/"
+  },
+  {
+
+
+
+   "kind": "admin#directory#chromeosdevice",
+
+   "deviceId": "94e3f089-75e1-48c0-ba86-e948528c427a",
+   "serialNumber": "HY3B91ECA01120",
+
+   "status": "ACTIVE",
+   "lastSync": "2013-03-01T23:23:39.752Z",
+
+   "lastEnrollmentTime": "2012-11-21T19:16:02.789Z",
+   "orgUnitPath": "/"
+
+  },
+  {
+
+
+   "kind": "admin#directory#chromeosdevice",
+
+   "deviceId": "d3b704ae-27d5-4a51-9052-1defb4f5a38b",
+   "serialNumber": "HG3D93CB701951",
+
+   "status": "ACTIVE",
+   "lastSync": "2013-04-30T18:21:01.123Z",
+
+   "lastEnrollmentTime": "2013-04-30T16:46:18.045Z",
+   "orgUnitPath": "/testoferous"
+
+  }
+ ]
+}
