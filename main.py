@@ -20,6 +20,7 @@ import logging
 import os
 import pprint
 import sys
+import webapp2
 
 from apiclient.discovery import build
 from oauth2client.file import Storage
@@ -66,17 +67,8 @@ gflags.DEFINE_enum('logging_level', 'ERROR',
     'Set the level of logging detail.')
 
 
-def main(argv):
-  # Let the gflags module process the command-line arguments
-  try:
-    argv = FLAGS(argv)
-  except gflags.FlagsError, e:
-    print '%s\\nUsage: %s ARGS\\n%s' % (e, argv[0], FLAGS)
-    sys.exit(1)
-
-  # Set the logging according to the command-line flag
-  logging.getLogger().setLevel(getattr(logging, FLAGS.logging_level))
-
+class mainPage(webapp2.RequestHandler):
+ 
   # If the Credentials don't exist or are invalid, run through the native
   # client flow. The Storage object will ensure that if successful the good
   # Credentials will get written back to a file.
@@ -102,5 +94,9 @@ def main(argv):
     print ("The credentials have been revoked or expired, please re-run"
       "the application to re-authorize")
 
-if __name__ == '__main__':
-  main(sys.argv)
+#if __name__ == '__main__':
+#  main(sys.argv)
+
+application = webapp2.WSGIApplication( [ 
+	( '/', MainPage), 
+], debug=True )
