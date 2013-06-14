@@ -29,8 +29,6 @@ from oauth2client.client import flow_from_clientsecrets
 from oauth2client.tools import run
 
 
-FLAGS = gflags.FLAGS
-
 # CLIENT_SECRETS, name of a file containing the OAuth 2.0 information for this
 # application, including client_id and client_secret.
 # You can see the Client ID and Client secret on the API Access tab on the
@@ -57,14 +55,6 @@ FLOW = flow_from_clientsecrets(CLIENT_SECRETS,
       'https://www.googleapis.com/auth/admin.directory.device.chromeos' 
     ],
     message=MISSING_CLIENT_SECRETS_MESSAGE)
-
-
-# The gflags module makes defining command-line options easy for
-# applications. Run this program with the '--help' argument to see
-# all the flags that it understands.
-gflags.DEFINE_enum('logging_level', 'ERROR',
-    ['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'],
-    'Set the level of logging detail.')
 
 
 class mainPage(webapp2.RequestHandler):
