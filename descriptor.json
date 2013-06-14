@@ -1,0 +1,42 @@
+{
+  "discoveryLink": "./apis/admin/directory_v1/rest", 
+  "kind": "discovery#directoryItem", 
+  "description": "Apps Directory API lets you view and manage enterprise resources like user, groups, OrgUnit, devices.", 
+  "title": "Admin Directory API", 
+  "discoveryRestUrl": "https://www.googleapis.com/discovery/v1/apis/admin/directory_v1/rest", 
+  "preferred": false, 
+  "version": "directory_v1", 
+  "icons": {
+    "x32": "http://www.google.com/images/icons/product/search-32.gif", 
+    "x16": "http://www.google.com/images/icons/product/search-16.gif"
+  }, 
+  "documentationLink": "https://developers.google.com/admin-sdk/directory/", 
+  "id": "admin:directory_v1", 
+  "name": "admin", 
+  "files": [
+    {
+      "downloadUrl": "/downloads/admin/directory_v1/5/python/1.0/google-admin-directory_v1-rev5-python-1.0-doc.zip", 
+      "path": "google-admin-directory_v1-rev5-python-1.0-doc.zip", 
+      "type": "documentation", 
+      "timestamp": "2013-06-11 09:18"
+    }
+  ], 
+  "revision": 5, 
+  "language": "python", 
+  "language_version": "1.0", 
+  "dependencies": [
+    {
+      "files": [
+        {
+          "downloadUrl": "http://google-api-python-client.googlecode.com/files/google-api-python-client-gae-1.0.zip", 
+          "type": "bundle"
+        }
+      ], 
+      "version": "1.0", 
+      "name": "Google APIs Client Library for Python", 
+      "environments": [
+        "*"
+      ]
+    }
+  ]
+}
