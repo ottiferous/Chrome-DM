@@ -23,70 +23,42 @@ import sys
 import webapp2
 
 from apiclient.discovery import build
+#from google.appengine.ext import webapp
 from oauth2client.file import Storage
+from oauth2client.appengine import OAuth2Decorator
 from oauth2client.client import AccessTokenRefreshError
 from oauth2client.client import flow_from_clientsecrets
 from oauth2client.tools import run
 
 
-# CLIENT_SECRETS, name of a file containing the OAuth 2.0 information for this
-# application, including client_id and client_secret.
-# You can see the Client ID and Client secret on the API Access tab on the
-# Google APIs Console <https://code.google.com/apis/console>
-CLIENT_SECRETS = 'client_secrets.json'
+# OAuth Token
+decorator = OAuth2Decorator(
+	client_id='1002667537078-s6rptef9h1s7jb72ssnbvr376gs0vgds.apps.googleusercontent.com'
+	client_secret='BaHkkaBxYk9d_b6cHE2iYGQ6'
+	scope='https://www.googleapis.com/auth/admin.directory.device.chromeos')
 
-# Helpful message to display if the CLIENT_SECRETS file is missing.
-MISSING_CLIENT_SECRETS_MESSAGE = """
-WARNING: Please configure OAuth 2.0
+service = build('admin', 'directory_v1')
 
-To make this sample run you will need to download the client_secrets.json file
-and save it at:
+class MainPage(webapp2.RequestHandler):
 
-   %s
-
-""" % os.path.join(os.path.dirname(__file__), CLIENT_SECRETS)
-
-# Set up a Flow object to be used for authentication.
-# Add one or more of the following scopes. PLEASE ONLY ADD THE SCOPES YOU
-# NEED. For more information on using scopes please see
-# <https://developers.google.com/+/best-practices>.
-FLOW = flow_from_clientsecrets(CLIENT_SECRETS,
-    scope=[
-      'https://www.googleapis.com/auth/admin.directory.device.chromeos' 
-    ],
-    message=MISSING_CLIENT_SECRETS_MESSAGE)
+	@decorator.oauth_required
+	def get(self):  
+    	self.response.write(...)
 
 
-class mainPage(webapp2.RequestHandler):
- 
-  # If the Credentials don't exist or are invalid, run through the native
-  # client flow. The Storage object will ensure that if successful the good
-  # Credentials will get written back to a file.
-  storage = Storage('sample.dat')
-  credentials = storage.get()
-
-  if credentials is None or credentials.invalid:
-    credentials = run(FLOW, storage)
-
-  # Create an httplib2.Http object to handle our HTTP requests and authorize it
-  # with our good Credentials.
-  http = httplib2.Http()
-  http = credentials.authorize(http)
-
-  service = build('admin', 'directory_v1', http=http)
-
-  try:
-
-    device = service.chromeosdevices().list(customerId='my_customer').execute()
-    print device
-  
-  except AccessTokenRefreshError:
-    print ("The credentials have been revoked or expired, please re-run"
-      "the application to re-authorize")
-
-#if __name__ == '__main__':
-#  main(sys.argv)
+class GetData(webapp2.RequestHandler):
+	
+	print 'Starting'
+	@decorator.oauth_aware
+	def post(self):
+		if decorator.has_credentials():
+			request = service.chromeosdevices().list(customerId='my_customer').execute()
+			self.response.write(json.dumps(request))
+		else:
+			self.response.write(json.dumps({'error' : 'No credentials'}))
 
 application = webapp2.WSGIApplication( [ 
-	( '/', MainPage), 
+	( '/', MainPage),
+	('/get-data' GetData),
+	(decorator.callback_path, decorator.callback_handler())
 ], debug=True )
