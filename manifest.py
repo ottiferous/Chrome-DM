@@ -1,5 +1,5 @@
 #
-# Python Master 
+# Python Manifest for Chrome devices
 #
 
 class chromeManifest:
