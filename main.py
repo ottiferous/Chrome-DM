@@ -22,10 +22,6 @@ import apicall.py
 
 
 # OAuth Token
-decorator = OAuth2Decorator(
-   client_id='1002667537078-pscobeqht92tkpnjg8cghf1ssaafkrvd.apps.googleusercontent.com',
-   client_secret='bgi3D7iua008KJ4SBr0F45nZ',
-   scope='https://www.googleapis.com/auth/admin.directory.device.chromeos')
 
 service = build('admin', 'directory_v1')
 
