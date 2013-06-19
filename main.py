@@ -15,6 +15,11 @@ from oauth2client.client import AccessTokenRefreshError
 from oauth2client.client import flow_from_clientsecrets
 from oauth2client.tools import run
 
+# Local files
+
+import manifest.py
+import apicall.py
+
 
 # OAuth Token
 decorator = OAuth2Decorator(
