@@ -32,6 +32,8 @@ class Main(webapp2.RequestHandler):
       http = decorator.http()
       if decorator.has_credentials():
          request = service.chromeosdevices().list(customerId='my_customer').execute(decorator.http())
+         manifest = chromeManifest
+         manifest.makeCSV(manifest.entryUpdate(manfiest.serialize(request)))
          self.response.write(request)
       else:
          self.response.write('Y\'all gonna need some credentials')

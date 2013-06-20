@@ -37,9 +37,28 @@ class chromeManifest:
       for _ in apiCall['chromeosdevices']:
          finalVersion.append(_)
    return finalVersion
+   
 #
 # Passes a ChromeOS device dictionary over so it can match up with the master manifest above
+# does not change the manifest file, this is a placeholder. The returned file is used instead
 #
-   def addEntry(list):
-      for each _ in list:
-         manifest[_].append(list[_])
+   def entryUpdate(chromeDevice):
+      list = []
+      for _ in chromeDevice:
+         manifest.update(_)
+         list.append(manifest)
+      return list
+
+#
+# Create the string object of all the devices - each line should be an entry in a list
+#
+   def makeCSV(deviceList):
+      list = []
+      for _ in deviceList:
+         line = []
+         for key, value in _.iteritems()
+            line.append(v)
+         list.append(line)
+      for _ in list:
+         print ','.join(_)
+      return list
