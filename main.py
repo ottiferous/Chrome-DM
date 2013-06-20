@@ -1,7 +1,6 @@
 import gflags
 import httplib2
 import logging
-import os
 import pprint
 import sys
 import webapp2
@@ -15,26 +14,69 @@ from oauth2client.client import AccessTokenRefreshError
 from oauth2client.client import flow_from_clientsecrets
 from oauth2client.tools import run
 
-# Local files
-
-import manifest.py
-import apicall.py
-
 
 # OAuth Token
+decorator = OAuth2Decorator(
+   client_id='1002667537078-pscobeqht92tkpnjg8cghf1ssaafkrvd.apps.googleusercontent.com',
+   client_secret='bgi3D7iua008KJ4SBr0F45nZ',
+   scope='https://www.googleapis.com/auth/admin.directory.device.chromeos')
 
 service = build('admin', 'directory_v1')
 
 
 class Main(webapp2.RequestHandler):
    @decorator.oauth_required
-   def get(self):  
+   def get(self):
+      self.response.headers['Content-Type'] = 'text/csv'  
       http = decorator.http()
       if decorator.has_credentials():
          request = service.chromeosdevices().list(customerId='my_customer').execute(decorator.http())
-         manifest = chromeManifest
-         manifest.makeCSV(manifest.entryUpdate(manfiest.serialize(request)))
-         self.response.write(request)
+         
+         del request['kind']
+         
+         #list of dicts
+         chromeDevice = []
+         for _ in request['chromeosdevices']:
+            chromeDevice.append(_)
+                  
+         manifest = {
+            'annotatedLocation': '',
+            'annotatedUser': '',
+            'bootMode': '',
+            'deviceId': '',
+            'firmwareVersion': '',
+            'kind': '',
+            'lastEnrollmentTime': '',
+            'lastSync': '',
+            'macAddress': '',
+            'meid': '',
+            'model': '',
+            'notes': '',
+            'orderNumber': '',
+            'orgUnitPath': '',
+            'osVersion': '',
+            'platformVersion': '',
+            'serialNumber': '',
+            'status': '',
+            'supportEndDate': '',
+            'willAutoRenew': '' 
+         }
+
+         # create a manfiest with blanks for empty fields
+         deviceList = []
+         for _ in chromeDevice:
+            manifest.update(_)
+            deviceList.append(manifest.values())
+
+         # Write the Header info
+         for _ in manifest.keys():
+            self.response.write( _ + '\t')
+         self.response.write("\n")
+         
+         # Begin writing the device info lines
+         for _ in deviceList:
+            self.response.write('\t'.join( map(lambda x:x if x!= '' else '|',_)))
+            self.response.write("\n")
       else:
          self.response.write('Y\'all gonna need some credentials')
 

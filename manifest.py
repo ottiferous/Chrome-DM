@@ -36,7 +36,7 @@ class chromeManifest:
       finalVersion = []
       for _ in apiCall['chromeosdevices']:
          finalVersion.append(_)
-   return finalVersion
+      return finalVersion
    
 #
 # Passes a ChromeOS device dictionary over so it can match up with the master manifest above
@@ -56,7 +56,7 @@ class chromeManifest:
       list = []
       for _ in deviceList:
          line = []
-         for key, value in _.iteritems()
+         for key, value in _.iteritems():
             line.append(v)
          list.append(line)
       for _ in list:
