@@ -31,52 +31,42 @@ class Main(webapp2.RequestHandler):
       http = decorator.http()
       if decorator.has_credentials():
          request = service.chromeosdevices().list(customerId='my_customer').execute(decorator.http())
-         
-         del request['kind']
-         
-         #list of dicts
-         chromeDevice = []
-         for _ in request['chromeosdevices']:
-            chromeDevice.append(_)
-                  
+         devices = request['chromeosdevices']
+
+         while 'nextPageToken' in request:
+            request = service.chromeosdevices().list(customerId='my_customer', pageToken=request['nextPageToken']).execute()
+            devices.append(result['chromeosdevices'])
+         print "Devices is: ", len(devices)
          manifest = {
-            'annotatedLocation': '',
-            'annotatedUser': '',
-            'bootMode': '',
-            'deviceId': '',
-            'firmwareVersion': '',
-            'kind': '',
-            'lastEnrollmentTime': '',
-            'lastSync': '',
-            'macAddress': '',
-            'meid': '',
-            'model': '',
-            'notes': '',
-            'orderNumber': '',
-            'orgUnitPath': '',
-            'osVersion': '',
-            'platformVersion': '',
-            'serialNumber': '',
-            'status': '',
-            'supportEndDate': '',
-            'willAutoRenew': '' 
+            'annotatedLocation': u'','annotatedUser': u'','bootMode': u'','deviceId': u'',
+            'firmwareVersion': u'','kind': u'','lastEnrollmentTime': u'','lastSync': u'',
+            'macAddress': u'','meid': u'','model': u'','notes': u'','orderNumber': u'',
+            'orgUnitPath': u'','osVersion': u'','platformVersion': u'','serialNumber': u'',
+            'status': u'','supportEndDate': u'','willAutoRenew': u'' 
          }
+         
 
          # create a manfiest with blanks for empty fields
          deviceList = []
-         for _ in chromeDevice:
+         for _ in devices:
             manifest.update(_)
             deviceList.append(manifest.values())
-
+         
+         print "deviceList is: ", len(deviceList)   
          # Write the Header info
          for _ in manifest.keys():
             self.response.write( _ + '\t')
          self.response.write("\n")
          
+         
          # Begin writing the device info lines
          for _ in deviceList:
-            self.response.write('\t'.join( map(lambda x:x if x!= '' else '|',_)))
-            self.response.write("\n")
+            map(str, _)
+            try:
+               self.response.write("\t".join(map(lambda x:x if x!= '' else ' ',_)))
+               self.response.write("\n")
+            except:
+               print "Error with: ", _
       else:
          self.response.write('Y\'all gonna need some credentials')
 
