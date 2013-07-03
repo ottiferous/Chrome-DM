@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chrome Device Manifest</title>
+    <!-- Include the bootstrap stylesheets -->
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+  </head>
+ 
+  <body>
+    <div class="container">
+      <h1>Search</h1>
+      <label>Example for a simple search form.</label>
+ 
+      <!-- Search form with input field and button -->
+      <form class="well form-search">
+        <input type="text" class="input-medium search-query">
+        <button type="submit" class="btn btn-primary">Search</button>
+      </form>
+ 
+      <h2>Chrome!</h2>
+ 
+      <!-- Table with alternating cell background color and outer frame -->
+      <table class="table table-striped table-bordered">
+        <thead>
+         <tr>
+            {% for key in header_list %}
+               <th>{{ key }}</th>
+            {% endfor %}
+         </tr>
+      </thead>
+        <tbody>
+			{% for row in device_page %}
+				<tr>
+				{% for entry in row %}
+					<td>{{ entry }}</td>
+				{% endfor %}
+				</tr>
+			{% endfor %}
+		</tbody>
+      </table>
+    </div>
+    <!-- JavaScript placed at the end of the document so the pages load faster -->
+    <!-- Optional: Include the jQuery library -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+ 
+    <!-- Optional: Incorporate the Bootstrap Javascript plugins -->
+    <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+  </body>
+</html>
