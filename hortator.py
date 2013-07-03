@@ -5,8 +5,9 @@
 
 def GetChromeManifest(decorator):
    'Takes care of getting the Chrome Device Manifest. Returns the dict'
+   http = decorator.http()
    try: 
-      request = service.chromeosdevices().list(customerId='my_customer').execute(http=decorator)
+      request = service.chromeosdevices().list(customerId='my_customer').execute(http=decorator.http())
       devices = request['chromeosdevices']
       
       while 'nextPageToken' in request:
