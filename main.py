@@ -93,7 +93,6 @@ class RenderMain(webapp2.RequestHandler):
 
       http = decorator.http()
       if decorator.has_credentials():
-         print "[DECORATOR]: ", decorator
          request = service.chromeosdevices().list(customerId='my_customer').execute(decorator.http())
          devices = request['chromeosdevices']
       
