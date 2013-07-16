@@ -7,7 +7,7 @@ Pages should allow user to view a CSV, or a detailed listing of the more pertine
 ##Top Priority
 
 * ~~account for empty values~~
-   * ~~replace '' with ' ' or other value.~~
+   * ~~replace `''` with `' '` or other value.~~
 	   * ~~map(lambda) works well~~
 * allow for separate download page
 	* main page will explain whats going on, maybe make the API call and then allow for a button to download the actual CSV
@@ -33,12 +33,12 @@ Pages should allow user to view a CSV, or a detailed listing of the more pertine
 * Create a handy file for importing JSON data for local testing with python code
 	* [Sample raw JSON gist](https://gist.github.com/ottiferous/5807894)
 
-### Jinja
+### Jinja2
 
 * ~~Find current version and edit app.yaml~~
 * ~~Rendering device list~~
 	* render all on one page?
-	* 20 per page? User definable?
+	* 20 per page? User setting?
 * Update page with search
 	* 	does this work on the entire blob or just the page?
 * render with nested for loops?
