@@ -78,8 +78,23 @@ class Main(webapp2.RequestHandler):
          self.response.write('Y\'all gonna need some credentials')
 
 class MakeCSV(webapp2.RequestHandler):
+   
    def get(self):
-      self.response.write("Coming soon...")
+      response = GetChromeManifest('local')
+      
+      manifestTemplate = {
+         'annotatedUser': u'', 'kind': u'','lastEnrollmentTime': u'','lastSync': u'',
+         'model': u'','notes': u'','orgUnitPath': u'','osVersion': u'',
+         'platformVersion': u'','serialNumber': u'' }
+         
+      response = BuildChromeManifest(manifestTemplate, response)
+      
+      readableList = ['User', 'Kind', 'Enrollment Time', 'Last Sync', 
+                'Model', 'Notes', 'OU Path', 'OS Version', 
+                'Platform Version', 'Serial Number']
+               
+      template = jinja_environment.get_template('index.html')
+      self.response.out.write(template.render(header_list=readableList, device_page=response))
 
 class RenderMain(webapp2.RequestHandler):
    @decorator.oauth_required

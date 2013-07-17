@@ -2,10 +2,18 @@
 # API Call routines and modification
 #
 
+from secretlist import OauthSecrets 
+from oauth2client.appengine import OAuth2Decorator
+from oauth2client.appengine import OAuth2DecoratorFromClientSecrets
+from apiclient.discovery import build
 
-def GetChromeManifest(decorator):
+
+def GetChromeManifest(location):
    'Takes care of getting the Chrome Device Manifest. Returns the dict'
-   http = decorator.http()
+
+   decorator = OAuth2Decorator( *(OauthSecrets(location)) )
+   service = build('admin', 'directory_v1')
+
    try: 
       request = service.chromeosdevices().list(customerId='my_customer').execute(http=decorator.http())
       devices = request['chromeosdevices']
@@ -13,24 +21,25 @@ def GetChromeManifest(decorator):
       while 'nextPageToken' in request:
          request = service.chromeosdevices().list(customerId='my_customer', pageToken=request['nextPageToken']).execute()
          devices.append(result['chromeosdevices'])
+      
       return devices
    except:
-      print 'Y\'all gonna need some credentials'
+      print '[ERROR]: Unable to retrieve CrOS manifest'
 
-def BuildChromeManifest(manifest_template, device_list):
-   'Using the template map the device list and return the result'
+def BuildChromeManifest(desiredTemplate, apiResponse):
+   'Use the supplied template for mapping desired information and returning new manifest'
    try:
-      built_list = []
-      for _ in device_list:
-         manifest_template.update(_)
-         built_list.append(manifest_template.values())
-      return built_list
+      builtDictionary = []
+      for _ in apiResponse:
+         desiredTemplate.update(_)
+         builtDictionary.append(desiredTemplate.values())
+      return builtDictionary
    except:
-      print device_list
+      print apiResponse
       return ['#', '#', '#']
 
-def MakeCSV(deviceList):
-   'Takes the argument passed to it and creates the CSV file'
+def MakeCSV(apiResponse):
+   'Takes the raw API Response and outputs all info to a CSV'
    
    manifest = {
       'annotatedLocation': u'','annotatedUser': u'','bootMode': u'','deviceId': u'',
@@ -42,10 +51,10 @@ def MakeCSV(deviceList):
    
    self.response.headers['Content-Type'] = 'text/csv'  
    
-   deviceList = []
+   csvList = []
    for _ in devices:
       manifest.update(_)
-      deviceList.append(manifest.values())
+      csvList.append(manifest.values())
       
    # Write the Header info
    for _ in manifest.keys():
@@ -53,7 +62,7 @@ def MakeCSV(deviceList):
    self.response.write("\n")
    
    # Begin writing the device info lines
-   for row in deviceList:
+   for row in csvList:
       for _ in row:
          try:
             self.response.write(str(_) + "\t")   
