@@ -2,20 +2,18 @@
 # API Call routines and modification
 #
 
-from secretlist import OauthSecrets 
-from oauth2client.appengine import OAuth2Decorator
-from oauth2client.appengine import OAuth2DecoratorFromClientSecrets
 from apiclient.discovery import build
+from apiclient.errors import HttpError
 
-
-def GetChromeManifest(location):
+#
+#  The query is up and running
+#
+def GetChromeManifest(location, decorator):
    'Takes care of getting the Chrome Device Manifest. Returns the dict'
-
-   decorator = OAuth2Decorator( *(OauthSecrets(location)) )
-   service = build('admin', 'directory_v1')
-
+   
    try: 
-      request = service.chromeosdevices().list(customerId='my_customer').execute(http=decorator.http())
+      service = build('admin', 'directory_v1')
+      request = service.chromeosdevices().list(customerId='my_customer').execute(decorator.http())
       devices = request['chromeosdevices']
       
       while 'nextPageToken' in request:
@@ -23,20 +21,19 @@ def GetChromeManifest(location):
          devices.append(result['chromeosdevices'])
       
       return devices
-   except:
-      print '[ERROR]: Unable to retrieve CrOS manifest'
+   except HttpError as err:
+      print '[ERROR]: ', err.content
 
-def BuildChromeManifest(desiredTemplate, apiResponse):
+def BuildChromeManifest(Template, apiResponse):
    'Use the supplied template for mapping desired information and returning new manifest'
-   try:
-      builtDictionary = []
-      for _ in apiResponse:
-         desiredTemplate.update(_)
-         builtDictionary.append(desiredTemplate.values())
-      return builtDictionary
-   except:
-      print apiResponse
-      return ['#', '#', '#']
+
+   holder = []
+   for device_info in apiResponse:
+      for key in Template:
+         Template[key] = device_info.get(key, " ")
+      holder.append(Template.values())
+   return holder
+
 
 def MakeCSV(apiResponse):
    'Takes the raw API Response and outputs all info to a CSV'
