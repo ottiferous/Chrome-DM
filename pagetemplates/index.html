@@ -22,9 +22,9 @@
 		<div class="container-fluid well">
 			<div class="row-fluid">
 				<div class="span2 offset1">
-					<h4><abbr title="devices that have synced with your contorl panel in the previous 7 days" class="initialism">Weekly Active</abbr></h4>
+					<h4><abbr title="devices that have synced with the control panel in the previous 7 days (inclusive)" class="initialism">Weekly Active</abbr></h4>
 					{{ active|e }}
-					<h4>Total</h4>
+					<h4><abbr title="number of device-records returned from query" class="initialism">Total</abbr></h4>
 					{{ total|e }}
 				</div><!-- /.span3 -->
 
@@ -51,7 +51,7 @@
 			<!-- Download As CSV Button -->
 			<div class="row-fluid">
 				<div class="span4 offset4">
-					<form class="csv-download" action="/csv.csv" method="get">
+					<form class="csv-download" action="/csv" method="get">
 						<button type="submit" class="btn btn-large btn-block btn-success">Download CSV</button>
 					</form>
 				</div>
