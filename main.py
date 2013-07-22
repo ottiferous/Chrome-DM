@@ -23,6 +23,9 @@ from oauth2client.tools import run
 from secretlist import OauthSecrets
 from hortator import GetChromeManifest
 from hortator import BuildChromeManifest
+from hortator import FakeChromeManifest
+from hortator import StatsFromManifest
+
 
 #
 # OAuth Token using list unpacking from secret files
@@ -40,6 +43,30 @@ jinja_environment = jinja2.Environment(autoescape=True,
 class Main(webapp2.RequestHandler):
    @decorator.oauth_required
    def get(self):
+      response = FakeChromeManifest()
+      manifestTemplate = {
+         'annotatedUser': u'', 'lastEnrollmentTime': u'','lastSync': u'',
+         'notes': u'','orgUnitPath': u'','osVersion': u'',
+         'platformVersion': u'','serialNumber': u''
+      }
+      stats = StatsFromManifest(response)
+         
+      response = BuildChromeManifest(manifestTemplate, response)
+      readableList = ['User', 'First Enrollment', 'Serial Number', 'Last Sync', 'Platform Version', 'Notes', 'OS Version', 'OU Path']
+         
+      template = jinja_environment.get_template('index.html')
+      
+      self.response.out.write(template.render(
+         header_list=readableList, device_page=response, 
+            Channel=stats['Channel'], OUPath=stats['OUPath'], 
+            Version=stats['Version'], active=stats['RecentSync'], 
+            total=len(response)
+         )
+      )
+
+class MakeCSV(webapp2.RequestHandler):
+   @decorator.oauth_required
+   def get(self):
       response = GetChromeManifest(RUNLOCATION, decorator)
       manifest = {
          'annotatedLocation': u'','annotatedUser': u'','bootMode': u'','deviceId': u'',
@@ -49,8 +76,10 @@ class Main(webapp2.RequestHandler):
          'status': u'','supportEndDate': u'','willAutoRenew': u'' 
       }         
       response = BuildChromeManifest(manifest, response)         
-      
-      # Write the Header info
+
+      self.response.headers['Content-Type'] = 'text/csv'
+
+      # Write the CSV Header entries
       for _ in manifest.keys():
          self.response.write( _ + "\t")
       self.response.write("\n")
@@ -64,65 +93,9 @@ class Main(webapp2.RequestHandler):
             except:
                print "ERROR parsing: ", _
          self.response.write("\n")
-
-class MakeCSV(webapp2.RequestHandler):
-   @decorator.oauth_required
-   def get(self):
-      response = GetChromeManifest(RUNLOCATION, decorator)
-      
-      manifestTemplate = {
-         'annotatedUser': u'', 'lastEnrollmentTime': u'','lastSync': u'',
-         'notes': u'','orgUnitPath': u'','osVersion': u'',
-         'platformVersion': u'','serialNumber': u''
-      }
-         
-      response = BuildChromeManifest(manifestTemplate, response)
-      print response[1]
-      readableList = ['User', 'First Enrollment', 'Serial Number', 'Last Sync', 
-                'Platform Version', 'Notes', 'OS Version', 'OU Path']
-               
-      template = jinja_environment.get_template('index.html')
-      self.response.out.write(template.render(header_list=readableList, device_page=response))
-
-class RenderMain(webapp2.RequestHandler):
-   @decorator.oauth_required
-   def get(self):
-      manifest_template = {
-         'annotatedUser': u'', 'kind': u'','lastEnrollmentTime': u'','lastSync': u'',
-         'model': u'','notes': u'','orgUnitPath': u'','osVersion': u'',
-         'platformVersion': u'','serialNumber': u'' }
-      built_list = []
-      devices = False
-      http = decorator.http()
-      if decorator.has_credentials():
-         request = service.chromeosdevices().list(customerId='my_customer').execute(decorator.http())
-         devices = request['chromeosdevices']
- 
-         while 'nextPageToken' in request:
-            request = service.chromeosdevices().list(customerId='my_customer', pageToken=request['nextPageToken']).execute()
-            devices.append(result['chromeosdevices'])
-         
-         for _ in devices:
-            manifest_template.update(_)
-            built_list.append(manifest_template.values())
-      else:
-         print "Something went wrong!"
-         print " = Dumping variables = "
-         print "[HTTP]: ", http
-         print "[DEVICES]: ", devices
-         print "[BUILT_LIST]: ", built_list
-         print "[DECORATOR]: ", decorator.iteritems()
-
-      readable_list = ['User', 'Kind', 'Enrollment Time', 'Last Sync', 
-                'Model', 'Notes', 'OU Path', 'OS Version', 
-                'Platform Version', 'Serial Number']
-               
-      template = jinja_environment.get_template('index.html')
-      self.response.out.write(template.render(header_list=readable_list, device_page=built_list))
-
+#      self.redirect('/')
 app = webapp2.WSGIApplication( [ 
    ( '/', Main),
    ( '/csv', MakeCSV),
-   ( '/render', RenderMain),
    (decorator.callback_path, decorator.callback_handler())
 ], debug=True )
