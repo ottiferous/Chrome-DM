@@ -14,7 +14,7 @@ import re
 #
 #  The query is up and running
 #
-def GetChromeManifest(location, decorator):
+def GetChromeManifest(decorator):
    'Takes care of getting the Chrome Device Manifest. Returns the dict'
    
    try: 
@@ -46,9 +46,6 @@ def BuildChromeManifest(Template, apiResponse):
       holder.append(Template.values())
    return holder
 
-#
-# Perform analysis on data once its retrieved
-#
 def StatsFromManifest(apiResponse):
    'Perform a series of tests on Chrome Manifest and returns a dict object'
 
@@ -62,9 +59,12 @@ def StatsFromManifest(apiResponse):
    for device in apiResponse:
 
       # Check for LastSyncTime
-      if (today - (datetime.strptime(device['lastSync'][:-14], '%Y-%m-%d').date())) >= timedelta(days=-7):
-         LastSyncCount += 1   
-
+      try:
+         if (today - (datetime.strptime(device['lastSync'][:-14], '%Y-%m-%d').date())) >= timedelta(days=-7):
+            LastSyncCount += 1   
+      except:
+         pass
+         
       # Find the channel and increment appropriately      
       if 'platformVersion' in device:
          Channels[re.match(r'.* (.*)-channel', device['platformVersion'], re.U).group(1)] += 1 

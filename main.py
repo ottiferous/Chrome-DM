@@ -26,12 +26,16 @@ from hortator import BuildChromeManifest
 from hortator import FakeChromeManifest
 from hortator import StatsFromManifest
 
+# Determine run location
+global RUNLOCATION
+if os.environ['SERVER_SOFTWARE'].startswith('Development'):
+   RUNLOCATION = 'local'
+else:
+   RUNLOCATION = 'online'
 
 #
 # OAuth Token using list unpacking from secret files
 #
-global RUNLOCATION
-RUNLOCATION = 'local'
 decorator = OAuth2Decorator( *(OauthSecrets(RUNLOCATION)) )
 
 
@@ -43,7 +47,7 @@ jinja_environment = jinja2.Environment(autoescape=True,
 class Main(webapp2.RequestHandler):
    @decorator.oauth_required
    def get(self):
-      response = FakeChromeManifest()
+      response = GetChromeManifest(decorator)
       manifestTemplate = {
          'annotatedUser': u'', 'lastEnrollmentTime': u'','lastSync': u'',
          'notes': u'','orgUnitPath': u'','osVersion': u'',
@@ -67,7 +71,7 @@ class Main(webapp2.RequestHandler):
 class MakeCSV(webapp2.RequestHandler):
    @decorator.oauth_required
    def get(self):
-      response = GetChromeManifest(RUNLOCATION, decorator)
+      response = GetChromeManifest(decorator)
       manifest = {
          'annotatedLocation': u'','annotatedUser': u'','bootMode': u'','deviceId': u'',
          'firmwareVersion': u'','kind': u'','lastEnrollmentTime': u'','lastSync': u'',
