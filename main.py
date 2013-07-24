@@ -45,6 +45,12 @@ jinja_environment = jinja2.Environment(autoescape=True,
 
 
 class Main(webapp2.RequestHandler):
+  def get(self):
+    template = jinja_environment.get_template('index.html')
+    self.response.out.write(template.render())
+
+
+class StatsPage(webapp2.RequestHandler):
    @decorator.oauth_required
    def get(self):
       response = GetChromeManifest(decorator)
@@ -58,7 +64,7 @@ class Main(webapp2.RequestHandler):
       response = BuildChromeManifest(manifestTemplate, response)
       readableList = ['User', 'First Enrollment', 'Serial Number', 'Last Sync', 'Platform Version', 'Notes', 'OS Version', 'OU Path']
          
-      template = jinja_environment.get_template('index.html')
+      template = jinja_environment.get_template('statspage.html')
       
       self.response.out.write(template.render(
          header_list=readableList, device_page=response, 
@@ -85,7 +91,7 @@ class MakeCSV(webapp2.RequestHandler):
 
       # Write the CSV Header entries
       for _ in manifest.keys():
-         self.response.write( _ + "\t")
+         self.response.write( "\"" + _ + "\"" + ",")
       self.response.write("\n")
       
       
@@ -93,13 +99,15 @@ class MakeCSV(webapp2.RequestHandler):
       for row in response:
          for _ in row:
             try:
-               self.response.write(str(_) + "\t")
+               self.response.write("\"" + str(_) + "\"" + ",")
             except:
                print "ERROR parsing: ", _
          self.response.write("\n")
 #      self.redirect('/')
+    
 app = webapp2.WSGIApplication( [ 
    ( '/', Main),
    ( '/csv', MakeCSV),
+   ( '/stats', StatsPage),
    (decorator.callback_path, decorator.callback_handler())
 ], debug=True )
