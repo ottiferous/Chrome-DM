@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Chrome Device Manifest</title>
+		<!-- Include the bootstrap stylesheets -->
+		<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+	</head>
+
+	<body>
+		<h1 class="text-center">Chrome Device Information</h1>
+			<div class="row-fluid">
+				<div class="span6 offset3">		
+					<!-- Put some words in here to take up space -->
+					The top section outlines basic useful information found from the device manifest.
+					Below that is an abridged listing of the more basic information on the devices.
+					This includes the option to download the manifest as a <abbr title="Tab delineated" class="initialism">CSV.</abbr>
+					Future releases may allow for editing of the updatable fields inline.
+					<!-- This section for graphs ( HTML5 ) -->
+				</div>
+			</div>
+		<h3 class="text-center">Overview</h3>
+		<div class="container-fluid well">
+			<div class="row-fluid">
+				<div class="span2 offset1">
+					<h4><abbr title="devices that have synced with the control panel in the previous 7 days (inclusive)" class="initialism">Weekly Active</abbr></h4>
+					{{ active|e }}
+					<h4><abbr title="number of device-records returned from query" class="initialism">Total</abbr></h4>
+					{{ total|e }}
+				</div><!-- /.span3 -->
+
+				<div class="span2 offset1">
+					<h4>Channels</h4>
+					{% for key, value in Channel|sort %}
+						<strong>{{ key|e }}</strong> : {{ value|e }}</br>
+					{% endfor %}
+				</div><!-- /.span3 -->
+				<div class="span2 offset1">
+					<h4>OU Paths</h4>
+						{% for key, value in OUPath|sort %}
+							<strong>{{ key|e }}</strong> : {{ value|e }}</br>
+						{% endfor %}
+				</div><!-- /.span3 -->
+				<div class="span2 offset1">					
+					<h4>Versions</h4>
+					{% for key, value in Version|sort %}
+						<strong>{{ key[:2]|e }}</strong> : {{ value|e }}</br>
+					{% endfor %}
+				</div><!-- /.span3 -->
+			</div><!-- /.row-fluid -->
+			</br></br></br></br>
+			<!-- Download As CSV Button -->
+			<div class="row-fluid">
+				<div class="span4 offset4">
+					<form class="csv-download" action="/csv" method="get">
+						<button type="submit" class="btn btn-large btn-block btn-success">Download CSV</button>
+					</form>
+				</div>
+			</div><!-- ./container-fluid span4 offset4 -->
+
+		</div><!-- /.container-fluid well -->
+		
+		<!-- Table with alternating cell background color and outer frame -->
+		<div class="container-fluid">
+			<h3>Sample Table</h3>
+			<table class="table table-striped table-bordered">
+				<thead>
+					<tr>
+						{% for key in header_list %}
+							<th>{{ key|e }}</th>
+						{% endfor %}
+					</tr>
+				</thead>
+				<tbody>
+					{% for row in device_page %}
+						<tr>
+							{% for entry in row %}
+								<td>{{ entry|e }}</td>
+							{% endfor %}
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div><!-- ./TableDiv -->
+
+		<!-- JavaScript placed at the end of the document so the pages load faster -->
+		<!-- Optional: Include the jQuery library -->
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+
+		<!-- Optional: Incorporate the Bootstrap Javascript plugins -->
+		<script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+
+		<footer>
+	     <p>&copy; Andrew Marrone 2013</p>
+	   </footer>
+
+	</body>
+</html>
