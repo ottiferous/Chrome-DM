@@ -1,92 +1,67 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<title>Chrome Device Manifest</title>
-		<!-- Include the bootstrap stylesheets -->
-		<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
-	</head>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Chrome Device Manager Tool</title>
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+  </head>
 
-	<body>
-		<h1 class="text-center">Chrome Device Information</h1>
-			<div class="row-fluid">
-				<div class="span6 offset3">		
-					<!-- Put some words in here to take up space -->
-					The top section outlines basic useful information found from the device manifest.
-					Below that is an abridged listing of the more basic information on the devices.
-					This includes the option to download the manifest as a <abbr title="Tab delineated" class="initialism">CSV.</abbr>
-					Future releases may allow for editing of the updatable fields inline.
-					<!-- This section for graphs ( HTML5 ) -->
-				</div>
-			</div>
-		<h3 class="text-center">Overview</h3>
-		<div class="container-fluid well">
-			<div class="row-fluid">
-				<div class="span2 offset1">
-					<h4><abbr title="devices that have synced with the control panel in the previous 7 days (inclusive)" class="initialism">Weekly Active</abbr></h4>
-					{{ active|e }}
-					<h4><abbr title="number of device-records returned from query" class="initialism">Total</abbr></h4>
-					{{ total|e }}
-				</div><!-- /.span3 -->
+  <body>
+     <div class="navbar navbar-fixed-top navbar-inverse">
+        <div class="navbar-inner">
+           <div class="container">
+           </div>
+        </div>
+     </div>
+    <div class="container-fluid">
 
-				<div class="span2 offset1">
-					<h4>Channels</h4>
-					{% for key, value in Channel|sort %}
-						<strong>{{ key|e }}</strong> : {{ value|e }}</br>
-					{% endfor %}
-				</div><!-- /.span3 -->
-				<div class="span2 offset1">
-					<h4>OU Paths</h4>
-						{% for key, value in OUPath|sort %}
-							<strong>{{ key|e }}</strong> : {{ value|e }}</br>
-						{% endfor %}
-				</div><!-- /.span3 -->
-				<div class="span2 offset1">					
-					<h4>Versions</h4>
-					{% for key, value in Version|sort %}
-						<strong>{{ key[:2]|e }}</strong> : {{ value|e }}</br>
-					{% endfor %}
-				</div><!-- /.span3 -->
-			</div><!-- /.row-fluid -->
-			</br></br></br></br>
-			<!-- Download As CSV Button -->
-			<div class="row-fluid">
-				<div class="span4 offset4">
-					<form class="csv-download" action="/csv" method="get">
-						<button type="submit" class="btn btn-large btn-block btn-success">Download CSV</button>
-					</form>
-				</div>
-			</div><!-- ./container-fluid span4 offset4 -->
+      <!-- Main hero unit for a primary marketing message or call to action -->
+      <div class="hero-unit">
+        <h1>Chrome Device Manager Tool</h1>
+        <p>The best way to get more information about your Chrome Devices without having to do it manually.</p>
+        <p><a href="/stats" class="btn btn-primary btn-large">I'm Ready &raquo;</a></p>
+      </div>
 
-		</div><!-- /.container-fluid well -->
-		
-		<!-- Table with alternating cell background color and outer frame -->
-		<div class="container-fluid">
-			<h3>Sample Table</h3>
-			<table class="table table-striped table-bordered">
-				<thead>
-					<tr>
-						{% for key in header_list %}
-							<th>{{ key|e }}</th>
-						{% endfor %}
-					</tr>
-				</thead>
-				<tbody>
-					{% for row in device_page %}
-						<tr>
-							{% for entry in row %}
-								<td>{{ entry|e }}</td>
-							{% endfor %}
-						</tr>
-					{% endfor %}
-				</tbody>
-			</table>
-		</div><!-- ./TableDiv -->
+      <!-- Info Columns -->
+      <div class="row-fluid">
+        <div class="span4">
+          <h2>Getting Started</h2>
+          <ol>
+             <li><p>You will first need to <a href="http://support.google.com/a/bin/answer.py?hl=en&answer=60757">enable API Access</a> to your domain</p></li>
+             <li><p>Have Admin rights / credentials to the domain</p>
+             <p>If you are already signed into one or more Google services you may need to sign out to make sure you use the correct credentials</p></li>
+             <li><p>Once the API access is enabled, and you are ready to have an admin sign in go ahead and click on "I'm ready"</p></li>
+          </ol>   
+        </div>
+        <div class="span4">
+          <h2>Stats</h2>
+          <p>Supporting the following useful metrics:
+            <ul>
+               <li>7 Day Active</li>
+               <li>Total Devices</li>
+               <li>Number of devices on each channel</li>
+               <li>Devices per OU</li>
+               <li>Number of devices on each version</li>
+          </p>
+       </div>
+        <div class="span4">
+          <h2>Not Enough?</h2>
+          <p>Download all the information about your devices in a convenient CSV! This includes data that you normally cannot view through the Chrome Management panel.</p>
+        </div>
+      </div>
 
-		<!-- JavaScript placed at the end of the document so the pages load faster -->
-		<!-- Optional: Include the jQuery library -->
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+      <hr>
 
-		<!-- Optional: Incorporate the Bootstrap Javascript plugins -->
-		<script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
-	</body>
+      <footer>
+        <p>&copy; Andrew Marrone 2013</p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+
+  </body>
 </html>
