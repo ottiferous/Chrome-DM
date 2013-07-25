@@ -58,21 +58,33 @@ def StatsFromManifest(apiResponse):
   for device in apiResponse:
 
     # Check for LastSyncTime
-    if 'lastSync' in device:
-      if (today - (datetime.strptime(device['lastSync'][:-14], '%Y-%m-%d').date())) >= timedelta(days=-7):
-        LastSyncCount += 1
+    try:
+      if 'lastSync' in device:
+        if (today - (datetime.strptime(device['lastSync'][:-14], '%Y-%m-%d').date())) >= timedelta(days=-7):
+          LastSyncCount += 1
+    except:
+      print "[LastSync]: ", device
       
     # Find the channel and increment appropriately    
-    if 'platformVersion' in device:
-      Channels[re.match(r'.* (.*)-channel', device['platformVersion'], re.U).group(1)] += 1 
+    try:
+      if 'platformVersion' in device:
+        Channels[re.match(r'.* (.*)-channel', device['platformVersion'], re.U).group(1)] += 1 
+    except:
+      print "[platformVersion]: ", device
 
     # Count of each device in a given OU
-    if 'orgUnitPath' in device:
-      OUPath[device['orgUnitPath']] += 1
+    try:
+      if 'orgUnitPath' in device:
+        OUPath[device['orgUnitPath']] += 1
+    except:
+      print "[orgUnitPath]", device
 
     # Count of each OS Version
-    if 'osVersion' in device:
-      Version[device['osVersion']] += 1
+    try:
+      if 'osVersion' in device:
+        Version[device['osVersion']] += 1
+    except:
+      print "[osVersion]: ", device
 
   # Once data has been collected bundle up and return
   stats = {}
