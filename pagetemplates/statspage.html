@@ -6,6 +6,28 @@
 		<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
 	</head>
 
+   <!-- Navbar For Each Page -->
+   <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+        <a class="brand" href="/">Chrome Device Manager</a>
+        <div class="nav-collapse">
+          <ul class="nav">
+            <li><a href="/"><i class="icon-home icon-white"></i>Home</a></li>
+            <li><a href="/setup">Setup</a></li>
+            <li class="active"><a href="/stats">CSV</a></li>
+            <li><a href="/about">About</a></li>
+          </ul>
+        </div><!-- /.nav-collapse -->
+      </div><!-- /.container -->
+    </div><!-- /.navbar-inner -->
+   </div><!-- /.navbar -->
+
 	<body>
 		<h1 class="text-center">Chrome Device Information</h1>
 			<div class="row-fluid">
@@ -13,7 +35,7 @@
 					<!-- Put some words in here to take up space -->
 					The top section outlines basic useful information found from the device manifest.
 					Below that is an abridged listing of the more basic information on the devices.
-					This includes the option to download the manifest as a <abbr title="Tab delineated" class="initialism">CSV.</abbr>
+					This includes the option to download the manifest as a <abbr title="comma separated value" class="initialism">CSV.</abbr>
 					Future releases may allow for editing of the updatable fields inline.
 					<!-- This section for graphs ( HTML5 ) -->
 				</div>
@@ -90,7 +112,7 @@
 		<script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
 
 		<footer>
-	     <p>&copy; Andrew Marrone 2013</p>
+	     <p class="text-center">&copy; <a href="https://github.com/ottiferous">Andrew 2013</a></p>
 	   </footer>
 
 	</body>

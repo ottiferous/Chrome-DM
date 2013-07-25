@@ -7,35 +7,49 @@
   </head>
 
   <body>
-     <div class="navbar navbar-fixed-top navbar-inverse">
-        <div class="navbar-inner">
-           <div class="container">
-           </div>
-        </div>
-     </div>
-    <div class="container-fluid">
+     
+     <!-- Navbar For Each Page -->
+     <div class="navbar navbar-fixed-top">
+       <div class="navbar-inner">
+         <div class="container">
+           <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+           </a>
+           <a class="brand" href="/">Chrome Device Manager</a>
+           <div class="nav-collapse">
+             <ul class="nav">
+               <li class="active"><a href="/">Home</a></li>
+               <li><a href="/setup">Setup</a></li>
+               <li><a href="/stats">CSV</a></li>
+               <li><a href="/about">About</a></li>
+             </ul>
+           </div><!-- /.nav-collapse -->
+         </div><!-- /.container -->
+       </div><!-- /.navbar-inner -->
+     </div><!-- /.navbar -->
 
       <!-- Main hero unit for a primary marketing message or call to action -->
       <div class="hero-unit">
-        <h1>Chrome Device Manager Tool</h1>
+        <h1>CDM Tool</h1>
         <p>The best way to get more information about your Chrome Devices without having to do it manually.</p>
-        <p><a href="/stats" class="btn btn-primary btn-large">I'm Ready &raquo;</a></p>
+        <p><a href="/setup" class="btn btn-primary btn-large">Get Started &raquo;</a></p>
       </div>
 
       <!-- Info Columns -->
       <div class="row-fluid">
-        <div class="span4">
-          <h2>Getting Started</h2>
+        <div class="span3 offset1">
+          <h2>Quick Start</h2>
           <ol>
-             <li><p>You will first need to <a href="http://support.google.com/a/bin/answer.py?hl=en&answer=60757">enable API Access</a> to your domain</p></li>
-             <li><p>Have Admin rights / credentials to the domain</p>
-             <p>If you are already signed into one or more Google services you may need to sign out to make sure you use the correct credentials</p></li>
-             <li><p>Once the API access is enabled, and you are ready to have an admin sign in go ahead and click on "I'm ready"</p></li>
+             <li><p><a href="http://support.google.com/a/bin/answer.py?hl=en&answer=60757">Enable API Access</a> to your domain</p></li>
+             <li><p>Have Admin rights / credentials to the domain</p></li>
+             <li><p>Click on "I'm ready"</p></li>
           </ol>   
         </div>
-        <div class="span4">
+        <div class="span3 offset1">
           <h2>Stats</h2>
-          <p>Supporting the following useful metrics:
+          <p>Supports the following useful metrics:
             <ul>
                <li>7 Day Active</li>
                <li>Total Devices</li>
@@ -44,16 +58,17 @@
                <li>Number of devices on each version</li>
           </p>
        </div>
-        <div class="span4">
+        <div class="span3 offset1">
           <h2>Not Enough?</h2>
-          <p>Download all the information about your devices in a convenient CSV! This includes data that you normally cannot view through the Chrome Management panel.</p>
+          <p>Download all the information about your devices in a convenient CSV! This includes data normally not readily available on the Chrome Management panel.</p>
         </div>
       </div>
 
       <hr>
 
+      <!-- Footer info for each page -->
       <footer>
-        <p>&copy; Andrew Marrone 2013</p>
+        <p class="text-center">&copy; <a href="https://github.com/ottiferous">Andrew 2013</a></p>
       </footer>
 
     </div> <!-- /container -->
