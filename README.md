@@ -26,3 +26,5 @@ Future releases may allow for editing of the updatable fields inline.
 	* Use HTML5 javascsript charts with `canvas` objects
 	* [ChartJS](http://www.chartjs.org/docs/)
 * Develop more robust unit tests
+* Better Error handling
+* Use template inheritance
