@@ -48,7 +48,19 @@ class Main(webapp2.RequestHandler):
   def get(self):
     template = jinja_environment.get_template('index.html')
     self.response.out.write(template.render())
+  
 
+class SetupPage(webapp2.RequestHandler):
+  def get(self):
+    template = jinja_environment.get_template('setup.html')
+    self.response.out.write(template.render())
+  
+
+class AboutPage(webapp2.RequestHandler):
+  def get(self):
+      template = jinja_environment.get_template('about.html')
+      self.response.out.write(template.render())
+  
 
 class StatsPage(webapp2.RequestHandler):
    @decorator.oauth_required
@@ -87,7 +99,9 @@ class MakeCSV(webapp2.RequestHandler):
       }         
       response = BuildChromeManifest(manifest, response)         
 
-      self.response.headers['Content-Type'] = 'text/csv'
+      # Specify headers for a CSV download
+      self.response.headers['Content-Type'] = 'application/csv'
+      self.response.headers.add_header('content-disposition', 'attachment', filename='devicelist.csv')
 
       # Write the CSV Header entries
       for _ in manifest.keys():
@@ -103,11 +117,13 @@ class MakeCSV(webapp2.RequestHandler):
             except:
                print "ERROR parsing: ", _
          self.response.write("\n")
-#      self.redirect('/')
+         
     
 app = webapp2.WSGIApplication( [ 
    ( '/', Main),
    ( '/csv', MakeCSV),
    ( '/stats', StatsPage),
+   ( '/about', AboutPage),
+   ( '/setup', SetupPage),
    (decorator.callback_path, decorator.callback_handler())
 ], debug=True )
