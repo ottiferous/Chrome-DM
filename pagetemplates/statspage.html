@@ -20,7 +20,7 @@
           <ul class="nav">
             <li><a href="/"><i class="icon-home icon-white"></i>Home</a></li>
             <li><a href="/setup">Setup</a></li>
-            <li class="active"><a href="/stats">CSV</a></li>
+            <li class="active"><a href="/stats">Stats</a></li>
             <li><a href="/about">About</a></li>
           </ul>
         </div><!-- /.nav-collapse -->
@@ -28,7 +28,7 @@
     </div><!-- /.navbar-inner -->
    </div><!-- /.navbar -->
 
-	<body>
+	<body style="padding-top: 40px">
 		<h1 class="text-center">Chrome Device Information</h1>
 			<div class="row-fluid">
 				<div class="span6 offset3">		
@@ -40,7 +40,6 @@
 					<!-- This section for graphs ( HTML5 ) -->
 				</div>
 			</div>
-		<h3 class="text-center">Overview</h3>
 		<div class="container-fluid well">
 			<div class="row-fluid">
 				<div class="span2 offset1">
@@ -111,9 +110,8 @@
 		<!-- Optional: Incorporate the Bootstrap Javascript plugins -->
 		<script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
 
-		<footer>
-	     <p class="text-center">&copy; <a href="https://github.com/ottiferous">Andrew 2013</a></p>
-	   </footer>
+      <!-- Footer info for each page -->
+      {% include 'footer.html' %}
 
 	</body>
 </html>
