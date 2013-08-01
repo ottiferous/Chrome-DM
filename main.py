@@ -49,16 +49,7 @@ class BaseHandler(webapp2.RequestHandler):
   def handle_exception(self, exception, debug):
     # Log the error
     logging.exception(exception)
-    print "==================================="
-    print exception._get_reason()
-    print type(exception)
-    print "==================================="
-
-    if isinstance(exception, webapp2.HTTPException):
-      self.response.set_status(exception.code)
-    else:
-      self.response.set_status(500)
-
+    
     template = jinja_environment.get_template('error.html')
     self.response.out.write(template.render(messageobj=exception._get_reason()))
 
@@ -136,10 +127,6 @@ class MakeCSV(BaseHandler):
                print "[ERROR parsing]: ", _
          self.response.write("\n")
 
-def handle_403(request, response, exception):
-   logging.exception(exception)
-   response.write('Ooops! You\'re gonna need authorization to do that')
-   response.set_status(403)         
     
 app = webapp2.WSGIApplication( [ 
    ( '/', Main),
@@ -149,5 +136,3 @@ app = webapp2.WSGIApplication( [
    ( '/setup', SetupPage),
    (decorator.callback_path, decorator.callback_handler())
 ], debug=debug )
-
-app.error_handlers[403] = handle_403
