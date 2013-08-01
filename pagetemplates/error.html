@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Chrome Device Manager Tool</title>
+    <title>Chrome Device Manager Tool - Error</title>
     <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
   </head>
 
@@ -33,12 +33,17 @@
       <!-- Body Content -->
    
       <div class="hero-unit">
-            <h2>Oops! Something Broke!</h2>
-            <h3><span class="badge badge-important">{{ messageobj }}</span></h3>
+            <h2>OH SNAP!</h2>
+            <h2>{{ messageobj }}</h2>
       </div>  
       <div class="row-fluid">
-         <div class="span4 offset2">
-            <p>I'll have to look into that.</p>
+         <div class="span6 offset2">
+            <h4>Some Common Issues</h4>
+               <ul>
+                  <li>
+                     <p><span class="badge badge-important">Domain cannot use apis</span> - make sure you have enabled API access to your domain</p>
+                  </li>
+               </ul>
          </div>
       </div> <!-- ./row-fluid> -->
 
