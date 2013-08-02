@@ -17,7 +17,6 @@ from oauth2client.client import AccessTokenRefreshError
 from oauth2client.client import flow_from_clientsecrets
 from oauth2client.tools import run
 
-
 # LocalFiles
 
 from secretlist import OauthSecrets
@@ -31,12 +30,13 @@ if os.environ['SERVER_SOFTWARE'].startswith('Dev'):
    RUNLOCATION = 'debug'
    debug = True
 else:
-   RUNLOCATION = 'online'
-   debug = False
+  RUNLOCATION = 'online'
+  debug = False
 
 #
 # OAuth Token using list unpacking from secret files
 #
+
 decorator = OAuth2Decorator( *(OauthSecrets(RUNLOCATION)) )
 
 
@@ -86,12 +86,24 @@ class StatsPage(BaseHandler):
       readableList = ['User', 'First Enrollment', 'Serial Number', 'Last Sync', 'Platform Version', 'Notes', 'OS Version', 'OU Path']
        
       template = jinja_environment.get_template('statspage.html')
+      
+      total = len(response)
+      VProunded = 100*round(float(stats['VersionTotal']) / float(total),2)
+      CProunded = 100*round(float(stats['ChannelTotal']) / float(total),2)
+      AProunded = 100*round(float(stats['RecentSync']) / float(total),2)
+      
+      print VProunded
+      print CProunded
+      print AProunded
+      print total
     
       self.response.out.write(template.render(
          header_list=readableList, device_page=response, 
             Channel=stats['Channel'], OUPath=stats['OUPath'], 
-            Version=stats['Version'], active=stats['RecentSync'], 
-            total=len(response)
+            Version=stats['Version'], active=stats['RecentSync'],
+            VersionTotal=stats['VersionTotal'], VersionPercent=VProunded,
+            ChannelTotal=stats['ChannelTotal'], ChannelPercent=CProunded,
+            ActivePercentage=AProunded ,total=total
          )
       )
       
@@ -114,7 +126,7 @@ class MakeCSV(BaseHandler):
 
       # Write the CSV Header entries
       for _ in manifest.keys():
-         self.response.write( "\"" + _ + "\"" + ",")
+        self.response.write( "\"" + _ + "\"" + ",")
       self.response.write("\n")
       
       
@@ -122,10 +134,11 @@ class MakeCSV(BaseHandler):
       for row in response:
          for _ in row:
             try:
-               self.response.write("\"" + str(_) + "\"" + ",")
+              line = ("\"" + str(_) + "\"" + ",")
+              self.response.write("\"" + str(_) + "\"" + ",")
             except:
                print "[ERROR parsing]: ", _
-         self.response.write("\n")
+         self.response.write(line[:-1] + "\n")
 
     
 app = webapp2.WSGIApplication( [ 
