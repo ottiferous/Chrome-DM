@@ -1,0 +1,22 @@
+<!-- Table with alternating cell background color and outer frame -->
+<div class="container-fluid">
+	<h3>Table</h3>
+	<table class="table table-striped table-bordered">
+		<thead>
+			<tr>
+				{% for key in header_list %}
+					<th>{{ key|e }}</th>
+				{% endfor %}
+			</tr>
+		</thead>
+		<tbody>
+			{% for row in device_page %}
+				<tr>
+					{% for entry in row %}
+						<td>{{ entry|e }}</td>
+					{% endfor %}
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div><!-- ./TableDiv -->

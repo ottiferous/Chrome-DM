@@ -1,93 +1,80 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Chrome Device Manifest</title>
-		<!-- Include the bootstrap stylesheets -->
-		<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+	   {% include 'header.html' %}
 	</head>
 
-   <!-- Navbar For Each Page -->
-   <div class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
-      <div class="container">
-        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </a>
-        <a class="brand" href="/">Chrome Device Manager</a>
-        <div class="nav-collapse">
-          <ul class="nav">
-            <li><a href="/"><i class="icon-home icon-white"></i>Home</a></li>
-            <li><a href="/setup">Setup</a></li>
-            <li class="active"><a href="/stats">Stats</a></li>
-            <li><a href="/about">About</a></li>
-          </ul>
-        </div><!-- /.nav-collapse -->
-      </div><!-- /.container -->
-    </div><!-- /.navbar-inner -->
-   </div><!-- /.navbar -->
+   {% include 'navbar.html' %}
 
-	<body style="padding-top: 40px">
+	<body>
 		<h1 class="text-center">Chrome Device Information</h1>
-			<div class="row-fluid">
-				<div class="span6 offset3">		
-					<!-- Put some words in here to take up space -->
-					The top section outlines basic useful information found from the device manifest.
-					Below that is an abridged listing of the more basic information on the devices.
-					This includes the option to download the manifest as a <abbr title="comma separated value" class="initialism">CSV.</abbr>
-					Future releases may allow for editing of the updatable fields inline.
-					<!-- This section for graphs ( HTML5 ) -->
-				</div>
+		<div class="row">
+			<div class="col-6 col-offset-3">		
+				<!-- Put some words in here to take up space -->
+				The top section outlines basic useful information found from the device manifest.
+				Below that is an abridged listing of the more basic information on the devices.
+				This includes the option to download the manifest as a CSV.
+				Future releases may allow for editing of the updatable fields inline.
+				<!-- This section for graphs ( HTML5 ) -->
 			</div>
-		<div class="container-fluid well">
-			<div class="row-fluid">
-				<div class="span2 offset1">
-					<h4><abbr title="devices that have synced with the control panel in the previous 7 days (inclusive)" class="initialism">Weekly Active</abbr></h4>
-					{{ active|e }}
-					<h4><abbr title="number of device-records returned from query" class="initialism">Total</abbr></h4>
-					{{ total|e }}
-				</div><!-- /.span3 -->
+		</div>
+      <div class="row well">
+         <div class="col-10 col-offset-1">
+      		<div class="col-3">
+   				<h4><abbr title="devices that have synced with the control panel in the previous 7 days (inclusive)" class="initialism">Weekly Active</abbr></h4>
+   				{{ active|e }}
+   				<h4><abbr title="number of device-records returned from query" class="initialism">Total</abbr></h4>
+   				{{ total|e }}
+   			</div><!-- /.col-3 -->
+   			<div class="col-3">
+   				<h4>Channels</h4>
+   				{% for key, value in Channel|sort %}
+   					<strong>{{ key|e }}</strong> : {{ value|e }}</br>
+   				{% endfor %}
+   			</div><!-- /.col-3 -->
+   			<div class="col-3">
+   				<h4>OU Paths</h4>
+   					{% for key, value in OUPath|sort %}
+   						<strong>{{ key|e }}</strong> : {{ value|e }}</br>
+   					{% endfor %}
+   			</div><!-- /.col-3 -->
+   			<div class="col-3">					
+   				<h4>Versions</h4>
+   				{% for key, value in Version|sort %}
+   					<strong>{{ key[:2]|e }}</strong> : {{ value|e }}</br>
+   				{% endfor %}
+   			</div><!-- /.col-3 -->
+      	</div> <!-- ./col-10 -->
+      </div> <!-- ./row -->
 
-				<div class="span2 offset1">
-					<h4>Channels</h4>
-					{% for key, value in Channel|sort %}
-						<strong>{{ key|e }}</strong> : {{ value|e }}</br>
-					{% endfor %}
-				</div><!-- /.span3 -->
-				<div class="span2 offset1">
-					<h4>OU Paths</h4>
-						{% for key, value in OUPath|sort %}
-							<strong>{{ key|e }}</strong> : {{ value|e }}</br>
-						{% endfor %}
-				</div><!-- /.span3 -->
-				<div class="span2 offset1">					
-					<h4>Versions</h4>
-					{% for key, value in Version|sort %}
-						<strong>{{ key[:2]|e }}</strong> : {{ value|e }}</br>
-					{% endfor %}
-				</div><!-- /.span3 -->
-			</div><!-- /.row-fluid -->
-			</br></br></br></br>
-			<!-- Download As CSV Button -->
-			<div class="row-fluid">
-				<div class="span4 offset4">
-					<form class="csv-download" action="/csv" method="get">
-						<button type="submit" class="btn btn-large btn-block btn-success">Download CSV</button>
-					</form>
-				</div>
-			</div><!-- ./container-fluid span4 offset4 -->
-
-		</div><!-- /.container-fluid well -->
+		</br></br>
 		
-      <!-- Table used to be here -->
-
-		<!-- JavaScript placed at the end of the document so the pages load faster -->
-		<!-- Optional: Include the jQuery library -->
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-
-		<!-- Optional: Incorporate the Bootstrap Javascript plugins -->
-		<script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+		<!-- Table to show % stats on device info -->
+		<div class="row">
+         <div class="col-3 col-offset-2">
+            <p><strong>{{ VersionTotal|e }}</strong> devices reporting version - <span class="label label-info">{{ VersionPercent|e }}%</span></p>
+         </div> <!-- ./col-3   -->
+         <div class="col-3  ">
+            <p><strong>{{ ChannelTotal|e }}</strong> devices reporting channel - <span class="label label-info">{{ ChannelPercent|e }}%</span></p>
+         </div> <!-- ./col-3   -->
+         <div class="col-3  ">
+            <p><span class="label label-info">{{ ActivePercentage|e }}%</span> active in last week</p>
+         </div> <!-- ./col-3   -->
+      </div> <!-- ./row -->
+      
+      </br></br>
+      
+		<!-- Download As CSV Button -->
+		<div class="row">
+			<div class="col-4 col-offset-4">
+				<form class="csv-download" action="/csv" method="get">
+					<button type="submit" class="btn btn-large btn-block btn-success">Download CSV</button>
+				</form>
+			</div>
+		</div>
+		
+		</br></br>
+		
 
       <!-- Footer info for each page -->
       {% include 'footer.html' %}
