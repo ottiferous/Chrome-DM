@@ -17,20 +17,15 @@ import re
 def GetChromeManifest(decorator):
   'Takes care of getting the Chrome Device Manifest. Returns the dict'
   
- # try: 
   service = build('admin', 'directory_v1')
-  request = service.chromeosdevices().list(customerId='my_customer', orderBy='serialNumber', sortOrder='ASCENDING').execute(decorator.http())
+  request = service.chromeosdevices().list(customerId='my_customer').execute(decorator.http())
   devices = request['chromeosdevices']
   
   while 'nextPageToken' in request:
-    request = service.chromeosdevices().list(customerId='my_customer', orderBy='serialNumber',sortOrder='ASCENDING', pageToken=request['nextPageToken']).execute()
+    request = service.chromeosdevices().list(customerId='my_customer', pageToken=request['nextPageToken']).execute()
     devices.append(result['chromeosdevices'])
   
   return devices
-    
-    # This is where the errors are happening with customers - it appears that they are failling at getting the API call?
-#  except:
-#    return "APICallFailed"
     
 def BuildChromeManifest(Template, apiResponse):
   'Use the supplied template for mapping desired information and returning new manifest'
@@ -89,5 +84,8 @@ def StatsFromManifest(apiResponse):
   stats['Channel'] = Channels.items()
   stats['OUPath'] = OUPath.items()
   stats['Version'] = Version.items()
+  
+  stats['ChannelTotal'] = sum(Channels.values())
+  stats['VersionTotal'] = sum(Version.values())
   
   return stats
