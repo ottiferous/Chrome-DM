@@ -45,6 +45,7 @@ def StatsFromManifest(apiResponse):
   Channels = defaultdict(int)
   OUPath = defaultdict(int)
   Version = defaultdict(int)
+  Status = defaultdict(int)
 
   # Master loop - go through all devices
   for device in apiResponse:
@@ -77,13 +78,21 @@ def StatsFromManifest(apiResponse):
         Version[device['osVersion']] += 1
     except:
       print "[osVersion]: ", device
-
+  
+    # Count of 'active' / 'shipped' etc.
+    try:
+      if 'status' in device:
+        Status[device['status']] += 1
+    except:
+      print "[status]: ", device
+        
   # Once data has been collected bundle up and return
   stats = {}
   stats['RecentSync'] = LastSyncCount
   stats['Channel'] = Channels.items()
   stats['OUPath'] = OUPath.items()
   stats['Version'] = Version.items()
+  stats['Status'] = Status.items()
   
   stats['ChannelTotal'] = sum(Channels.values())
   stats['VersionTotal'] = sum(Version.values())

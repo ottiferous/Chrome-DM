@@ -26,7 +26,7 @@
    				<h4><abbr title="number of device-records returned from query" class="initialism">Total</abbr></h4>
    				{{ total|e }}
    			</div><!-- /.col-3 -->
-   			<div class="col-3">
+   			<div class="col-2">
    				<h4>Channels</h4>
    				{% for key, value in Channel|sort %}
    					<strong>{{ key|e }}</strong> : {{ value|e }}</br>
@@ -38,7 +38,13 @@
    						<strong>{{ key|e }}</strong> : {{ value|e }}</br>
    					{% endfor %}
    			</div><!-- /.col-3 -->
-   			<div class="col-3">					
+   			<div class="col-2">
+   			   <h4>Status</h4>
+   			      {% for key, value in Status|sort %}
+   			         <strong>{{ key|e }}</strong> : {{ value|e }}</br>
+   			      {% endfor %}
+   			</div>
+   			<div class="col-2">					
    				<h4>Versions</h4>
    				{% for key, value in Version|sort %}
    					<strong>{{ key[:2]|e }}</strong> : {{ value|e }}</br>
