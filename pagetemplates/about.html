@@ -11,27 +11,29 @@
       <!-- Body Content -->
    
       <div class="jumbotron">
-            <h1>Source code available on <a href="http://github.com/ottiferous/chrome-dm">GitHub</a></h1>
-            <p>Use the<a href="https://developers.google.com/admin-sdk/directory/v1/guides/manage-chrome-devices"> Admin SDK</a>
-               and OAuth 2.0 to download a device listing for a domain</p>
+            <h1>Source available on <a href="http://github.com/ottiferous/chrome-dm">GitHub</a></h1>
+            <li>Using the<a href="https://developers.google.com/admin-sdk/directory/v1/guides/manage-chrome-devices"> Admin SDK API</a>
+               and OAuth 2.0 to retrieve statistics and a device listing of Chromedevices</li>
 
       </div>  
       <div class="row">
-         <div class="col-4 col-offset-2">
-            <h4 class="media-heading"><strong>Sample Table</strong><small> - Click for a larger view</small></h4>
-            <a class="thumbnail" href="/img/sampletable.jpg">
-               <img class="thumbnail" src="/img/sampletable.jpg" height="149" width="312">
-            </a>
-         </div>
-         <div class="col-3">
-            <p>The table includes a snapshot of the current information available in your Chrome Devices panel</p>
-            <p>The top section will give an overview of the more commonly requested information</p>
-            <p>Some fields may be blank for a given device if <span class="badge">device state reporting</span> is turned off</p>
-         </div>
-      </div> <!-- ./row> -->
+         <div class="col-6 col-offset-3">
+            <div class="col-4 col-offset-2">
+               <h1>FAQ</h1>
+            </div>
 
-
-      <hr>
+            <div class="row">
+               <div class="col-6 offset-2 well">
+                  <ul>
+                     <li>The panel includes a snapshot of the current information available in your Chrome Devices panel</li>
+                     <li>Giving an overview of usefli information requested information</li>
+                     <li>Some fields may be blank for a given device if <span class="badge">device state reporting</span> is turned off</li>
+                     <li>Downloading everything as a CSV will allow you to make charts, graphs etc.</li>
+                  </ul>
+               </div>
+            </div> <!-- ./row> -->
+         </div>
+      </div>
 
       <!-- Footer info for each page -->
       {% include 'footer.html' %}
