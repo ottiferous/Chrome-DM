@@ -75,7 +75,7 @@ def StatsFromManifest(apiResponse):
     # Count of each OS Version
     try:
       if 'osVersion' in device:
-        Version[device['osVersion']] += 1
+        Version[device['osVersion'][:2]] += 1
     except:
       print "[osVersion]: ", device
   

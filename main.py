@@ -110,7 +110,7 @@ class MakeCSV(BaseHandler):
     response = GetChromeManifest(decorator)
     manifest = {
       'annotatedLocation': u'','annotatedUser': u'','bootMode': u'','deviceId': u'',
-      'firmwareVersion': u'','kind': u'','lastEnrollmentTime': u'','lastSync': u'',
+      'firmwareVersion': u'','lastEnrollmentTime': u'','lastSync': u'',
       'macAddress': u'','meid': u'','model': u'','notes': u'','orderNumber': u'',
       'orgUnitPath': u'','osVersion': u'','platformVersion': u'','serialNumber': u'',
       'status': u'','supportEndDate': u'','willAutoRenew': u'' 
