@@ -42,6 +42,7 @@ def StatsFromManifest(apiResponse):
 
   today = datetime.now().date()
   LastSyncCount = 0
+  EnrollCount = 0
   Channels = defaultdict(int)
   OUPath = defaultdict(int)
   Version = defaultdict(int)
@@ -57,6 +58,14 @@ def StatsFromManifest(apiResponse):
           LastSyncCount += 1
     except:
       print "[LastSync]: ", device
+
+      # Check for LastEnrollmentDate in the past 7 days ( this would denote devices being wiped and re-enrolled )
+      try:
+        if 'lastEnrollmentTime' in device:
+          if (today - (datetime.strptime(device['lastEnrollmentTime'][:-14], '%Y-%m-%d').date())) >= timedelta(days=-7):
+            EnrollCount += 1
+      except:
+        print "[LastSync]: ", device
       
     # Find the channel and increment appropriately    
     try:
@@ -85,10 +94,13 @@ def StatsFromManifest(apiResponse):
         Status[device['status']] += 1
     except:
       print "[status]: ", device
+      
+    # Count of devices that wre
         
   # Once data has been collected bundle up and return
   stats = {}
   stats['RecentSync'] = LastSyncCount
+  stats['RecentEnroll'] = EnrollCount
   stats['Channel'] = Channels.items()
   stats['OUPath'] = OUPath.items()
   stats['Version'] = Version.items()

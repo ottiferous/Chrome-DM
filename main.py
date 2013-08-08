@@ -99,7 +99,7 @@ class StatsPage(BaseHandler):
         Version=stats['Version'], active=stats['RecentSync'],
         VersionTotal=stats['VersionTotal'], VersionPercent=VProunded,
         ChannelTotal=stats['ChannelTotal'], ChannelPercent=CProunded,
-        Status=stats['Status'],
+        Status=stats['Status'], enroll=stats['RecentEnroll'],
         ActivePercentage=AProunded ,total=total
       )
     )
