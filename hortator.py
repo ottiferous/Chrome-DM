@@ -44,6 +44,7 @@ def StatsFromManifest(apiResponse):
   LastSyncCount = 0
   EnrollCount = 0
   Channels = defaultdict(int)
+  Firmware = defaultdict(int)
   OUPath = defaultdict(int)
   Version = defaultdict(int)
   Status = defaultdict(int)
@@ -54,7 +55,7 @@ def StatsFromManifest(apiResponse):
     # Check for LastSyncTime
     try:
       if 'lastSync' in device:
-        if (today - (datetime.strptime(device['lastSync'][:-14], '%Y-%m-%d').date())) >= timedelta(days=-7):
+        if (today - (datetime.strptime(device['lastSync'][:-14], '%Y-%m-%d').date())) <= timedelta(days=7):
           LastSyncCount += 1
     except:
       print "[LastSync]: ", device
@@ -62,7 +63,7 @@ def StatsFromManifest(apiResponse):
       # Check for LastEnrollmentDate in the past 7 days ( this would denote devices being wiped and re-enrolled )
       try:
         if 'lastEnrollmentTime' in device:
-          if (today - (datetime.strptime(device['lastEnrollmentTime'][:-14], '%Y-%m-%d').date())) >= timedelta(days=-7):
+          if (today - (datetime.strptime(device['lastEnrollmentTime'][:-14], '%Y-%m-%d').date())) <= timedelta(days=7):
             EnrollCount += 1
       except:
         print "[LastSync]: ", device
@@ -73,6 +74,13 @@ def StatsFromManifest(apiResponse):
         Channels[re.match(r'.* (.*)-channel', device['platformVersion'], re.U).group(1)] += 1 
     except:
       print "[platformVersion]: ", device
+      
+    # Find the firmware version
+    try:
+      if 'firmwareVersion' in device:
+        Firmware[re.match(r'(.*?)\.', device['firmwareVersion'], re.U).group(1)] += 1
+    except:
+      print "[firmwareVersion]: ", device
 
     # Count of each device in a given OU
     try:
