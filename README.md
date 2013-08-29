@@ -69,6 +69,7 @@ Python was chosen because of the __OAuth2Decorator__ class that is made availabl
 
 ### Modules
 
+![Workflow](http://i.imgur.com/Su5rMa3.png "Workflow")
 #### Google
 The OAuth decorator and httplib files were gathered from the Google Developer site. These are not maintained by this project and are assumed to be stable.
 
