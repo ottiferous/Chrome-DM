@@ -1,4 +1,5 @@
 # Introduction
+__[Chrome-DM](http://chrome-dm.appspot.com/) is live on AppEngine!__
 
 ## Background
 Currently there is a lack of accessible information for Enterprise Hardware. Over half of the fields are not available using the Chrome Management dashboard, and exporting device information (serial numbers, user, location, OU, etc.) is absent. This leaves customers with large numbers of devices unable to manage an enterprise fleet of Chromebooks.
@@ -9,6 +10,7 @@ Leveraging available APIs to retrive information about all Chromebooks enrolled 
 Existing on the Google AppEngine cloud platform allows for scalability and accessiblity across all users of the Enterprise Management feature of Google Apps with Chrome devices. Keeping the code in a central location prevents the need to install and run the source code locally.
 
 As patterns emerge additional information can be shown to highlight the current 'health' of enrolled devices. To alleviate any security concerns the tool will make use of existing 3-legged OAuth services from Google. To encourage adoption and extensibility the source-code is available on Github.
+
 
 ---
 
