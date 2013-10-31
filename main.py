@@ -37,7 +37,7 @@ else:
 # OAuth Token using list unpacking from secret files
 #
 
-decorator = OAuth2Decorator( *(OauthSecrets(RUNLOCATION)) )
+decorator = (CreateDecorator(RUNLOCATION))
 
 
 # Jinja Stuff Goes Here
