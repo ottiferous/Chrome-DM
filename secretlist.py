@@ -9,6 +9,7 @@ def CreateDecorator(environment):
    'Creates the proper OAuth2Decorator for use with AppEngine'
 
    if environment = 'local':    #for running locally through AppEngine SDK
+   if environment != 'local':
       return OAuth2Decorator(
          client_id='YOUR_CLIENT_ID_HERE',
          client_secret='YOU_CLIENT_SECRET_HERE',
