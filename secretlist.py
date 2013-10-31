@@ -3,6 +3,7 @@
 #
 
 from oauth2client.appengine import Oauth2Decorator
+from oauth2client.appengine import OAuth2Decorator
 
 def CreateDecorator(environment):
    'Creates the proper OAuth2Decorator for use with AppEngine'

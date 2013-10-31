@@ -19,7 +19,7 @@ from oauth2client.tools import run
 
 # LocalFiles
 
-from secretlist import OauthSecrets
+from secretlist import CreateDecorator
 from hortator import GetChromeManifest
 from hortator import BuildChromeManifest
 from hortator import StatsFromManifest
