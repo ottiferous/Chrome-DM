@@ -100,8 +100,10 @@ Information will be displayed as a summary view for the entire domain so a 'gene
 
 ### First time use
 On visiting the __/stats__ page for a user who is not currently logged in they will trigger the 3-legged OAuth flow. A login page from Google is shown to allow authentication. Once credentials have been verified the API call will be made and results passed along to the rendering engine - Jinja.
+![Sample Stats](http://i.imgur.com/9ZIdhsI.png "Sample Stats")
 
 Here users will be able to see the stats displayed and click on a button to download the entire device listing as a CSV file.
+![Sample CSV] (http://i.imgur.com/LMGBNwJ.png "Sample CSV")
 
 ### Users without API service
 The 3-legged OAuth will trigger like any other user - but they will get a 400 error when the API call is made. This will cause a new page to be shown with the error message and links to possible solutions - like enabling API access for the domain.
